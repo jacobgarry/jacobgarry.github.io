@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Active Airbrake System | Jacob Garry</title>
+
+    <meta
+        name="description"
+        content="Active aerodynamic airbrake system developed for NCSU High-Powered Rocketry, featuring onboard apogee prediction, servo actuation, CFD analysis, and flight testing."
+    >
+
+    <style>
+        :root {
+            --navy: #08172b;
+            --navy-light: #102844;
+            --blue: #4aa3ff;
+            --light-blue: #8fc7ff;
+            --white: #ffffff;
+            --off-white: #f4f7fb;
+            --gray: #667085;
+            --dark-gray: #1d2939;
+            --border: #d9e2ec;
+            --shadow: 0 12px 35px rgba(8, 23, 43, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--dark-gray);
+            background: var(--off-white);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img,
+        video {
+            display: block;
+            width: 100%;
+        }
+
+        .container {
+            width: min(1080px, 90%);
+            margin: 0 auto;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8, 23, 43, 0.97);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            min-height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .back-link {
+            color: #dce8f5;
+            font-size: 0.93rem;
+        }
+
+        .back-link:hover {
+            color: var(--light-blue);
+        }
+
+        .hero {
+            padding: 78px 0 70px;
+            background:
+                radial-gradient(circle at 80% 25%, rgba(74, 163, 255, 0.24), transparent 32%),
+                linear-gradient(135deg, #061223 0%, #0d2947 100%);
+            color: var(--white);
+        }
+
+        .eyebrow,
+        .section-label {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--light-blue);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            max-width: 820px;
+            margin-bottom: 18px;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            line-height: 1;
+            letter-spacing: -0.045em;
+        }
+
+        .hero-copy {
+            max-width: 760px;
+            color: #d3e0ec;
+            font-size: 1.08rem;
+        }
+
+        .result-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            margin-top: 38px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .result {
+            padding: 22px;
+            background: rgba(8, 23, 43, 0.76);
+        }
+
+        .result strong {
+            display: block;
+            margin-bottom: 3px;
+            color: var(--white);
+            font-size: 1.45rem;
+        }
+
+        .result span {
+            color: #bfd5e8;
+            font-size: 0.88rem;
+        }
+
+        section {
+            padding: 72px 0;
+        }
+
+        .section-heading {
+            margin-bottom: 14px;
+            color: var(--navy);
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            line-height: 1.15;
+        }
+
+        .section-intro {
+            max-width: 760px;
+            margin-bottom: 34px;
+            color: var(--gray);
+        }
+
+        .card {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-image {
+            padding: 24px;
+        }
+
+        .hero-image img {
+            max-height: 670px;
+            object-fit: contain;
+        }
+
+        .caption {
+            padding: 15px 18px 18px;
+            border-top: 1px solid var(--border);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .features {
+            background: var(--white);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            padding: 26px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--off-white);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 1.12rem;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            font-size: 0.94rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1.35fr 0.85fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .video-card video {
+            aspect-ratio: 16 / 9;
+            background: #020814;
+            object-fit: contain;
+        }
+
+        .video-card.portrait video {
+            aspect-ratio: 9 / 16;
+            max-height: 560px;
+        }
+
+        .analysis {
+            background: var(--white);
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .analysis-card img {
+            aspect-ratio: 4 / 3;
+            object-fit: contain;
+            padding: 14px;
+            background: var(--white);
+        }
+
+        .analysis-copy {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .analysis-copy h3 {
+            margin-bottom: 7px;
+            color: var(--navy);
+        }
+
+        .analysis-copy p {
+            color: var(--gray);
+            font-size: 0.94rem;
+        }
+
+        .outcome {
+            padding-top: 0;
+        }
+
+        .outcome-panel {
+            display: grid;
+            grid-template-columns: 230px 1fr;
+            gap: 34px;
+            align-items: center;
+            padding: 34px;
+            border-radius: 14px;
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .award-number {
+            color: var(--light-blue);
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .award-label {
+            margin-top: 7px;
+            color: #bcd2e5;
+            font-size: 0.9rem;
+        }
+
+        .outcome-panel h2 {
+            margin-bottom: 10px;
+            font-size: 1.7rem;
+        }
+
+        .outcome-panel p {
+            color: #cfdeeb;
+        }
+
+        footer {
+            padding: 24px 0;
+            background: #050d18;
+            color: #9eb0c1;
+            text-align: center;
+            font-size: 0.86rem;
+        }
+
+        @media (max-width: 800px) {
+            .result-strip,
+            .feature-grid,
+            .video-grid,
+            .analysis-grid,
+            .outcome-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .result-strip {
+                gap: 1px;
+            }
+
+            .outcome-panel {
+                gap: 18px;
+            }
+
+            section {
+                padding: 58px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a class="logo" href="index.html">JACOB GARRY</a>
+            <a class="back-link" href="index.html#projects">← Back to Projects</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <span class="eyebrow">NCSU High-Powered Rocketry</span>
+
+            <h1>Active Airbrake Flight Control System</h1>
+
+            <p class="hero-copy">
+                A servo-actuated aerodynamic braking system that used onboard
+                sensing and real-time apogee prediction to determine when added
+                drag was necessary during ascent.
+            </p>
+
+            <div class="result-strip">
+                <div class="result">
+                    <strong>6 ft</strong>
+                    <span>From declared apogee</span>
+                </div>
+
+                <div class="result">
+                    <strong>Altitude Award</strong>
+                    <span>Competition flight result</span>
+                </div>
+
+                <div class="result">
+                    <strong>Autonomous</strong>
+                    <span>Deploy, retract, or remain stowed</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section>
+            <div class="container">
+                <p class="section-label">System Architecture</p>
+                <h2 class="section-heading">Mechanical, embedded, and aerodynamic design in one assembly.</h2>
+
+                <div class="card hero-image">
+                    <img
+                        src="media/airbrake_cad.png"
+                        alt="Exploded CAD model of the active airbrake and avionics assembly"
+                    >
+
+                    <p class="caption">
+                        Exploded CAD assembly showing the deployable drag surfaces,
+                        geared actuation system, avionics stack, sensors, and structural interfaces.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <p class="section-label">Key Engineering Choices</p>
+                <h2 class="section-heading">Designed to respond only when the trajectory required it.</h2>
+
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <h3>Real-Time Apogee Prediction</h3>
+                        <p>
+                            Onboard flight-state estimates were used to predict apogee
+                            and determine whether additional aerodynamic drag was needed.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <h3>Closed-Loop Deployment Logic</h3>
+                        <p>
+                            The system could extend, retract, or remain stowed instead
+                            of relying on a fixed deployment time.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <h3>Integrated Flight Hardware</h3>
+                        <p>
+                            Servo actuation, embedded computing, sensing, and mechanical
+                            deployment hardware were packaged into one removable assembly.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <p class="section-label">Testing</p>
+                <h2 class="section-heading">Flight behavior and actuator response.</h2>
+
+                <p class="section-intro">
+                    Short-form test footage communicates both the real flight environment
+                    and the speed and repeatability of the deployment mechanism.
+                </p>
+
+                <div class="video-grid">
+                    <article class="card video-card">
+                        <video controls preload="metadata" playsinline>
+                            <source src="media/airbrake_flight.mp4" type="video/mp4">
+                            Your browser does not support embedded video.
+                        </video>
+
+                        <p class="caption">
+                            Fifteen-second real-flight clip showing the airbrake system in
+                            its operating environment.
+                        </p>
+                    </article>
+
+                    <article class="card video-card portrait">
+                        <video controls preload="metadata" playsinline muted>
+                            <source src="media/airbrake_response.mp4" type="video/mp4">
+                            Your browser does not support embedded video.
+                        </video>
+
+                        <p class="caption">
+                            Bench test demonstrating rapid, repeatable deployment response.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="analysis">
+            <div class="container">
+                <p class="section-label">Analysis and Flight Data</p>
+                <h2 class="section-heading">Aerodynamic performance informed by simulation and telemetry.</h2>
+
+                <div class="analysis-grid">
+                    <article class="card analysis-card">
+                        <img
+                            src="media/airbrake_cfd.png"
+                            alt="CFD contour around the deployed airbrake geometry"
+                        >
+
+                        <div class="analysis-copy">
+                            <h3>CFD Flow Field</h3>
+                            <p>
+                                CFD was used to visualize the disturbed flow around the
+                                deployed surfaces and evaluate the source of added drag.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="card analysis-card">
+                        <img
+                            src="media/airbrake_pressure.png"
+                            alt="Comparison of flight pressure measurements around the airbrake system"
+                        >
+
+                        <div class="analysis-copy">
+                            <h3>Pressure-Sensor Effects</h3>
+                            <p>
+                                Flight data showed that deployment changed the local pressure
+                                environment, highlighting the importance of pressure-port and
+                                sensor placement near aerodynamic control surfaces.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="outcome">
+            <div class="container">
+                <div class="outcome-panel">
+                    <div>
+                        <div class="award-number">+6 ft</div>
+                        <div class="award-label">relative to declared apogee</div>
+                    </div>
+
+                    <div>
+                        <h2>Altitude Award Winner</h2>
+                        <p>
+                            The competition vehicle finished six feet above its declared
+                            apogee. On that flight, the controller determined that added drag
+                            was unnecessary and correctly kept the airbrakes stowed—an important
+                            example of an active system choosing not to actuate when the flight
+                            state did not require it.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="year"></span> Jacob Garry. Aerospace Engineering Portfolio.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
