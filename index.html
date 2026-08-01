@@ -1,1 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Jacob Garry | Aerospace Engineering Portfolio</title>
+
+    <meta
+        name="description"
+        content="Professional aerospace engineering portfolio featuring flight systems, controls, embedded computing, simulation, testing, and mechanical design."
+    >
+
+    <style>
+        :root {
+            --navy: #08172b;
+            --navy-light: #102844;
+            --blue: #4aa3ff;
+            --light-blue: #8fc7ff;
+            --white: #ffffff;
+            --off-white: #f4f7fb;
+            --gray: #667085;
+            --dark-gray: #1d2939;
+            --border: #d9e2ec;
+            --shadow: 0 12px 35px rgba(8, 23, 43, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--dark-gray);
+            background: var(--off-white);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1120px, 90%);
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8, 23, 43, 0.97);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #dce8f5;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--light-blue);
+        }
+
+        /* Hero */
+
+        .hero {
+            min-height: 680px;
+            display: flex;
+            align-items: center;
+            background:
+                radial-gradient(circle at 80% 30%, rgba(74, 163, 255, 0.23), transparent 32%),
+                linear-gradient(135deg, #061223 0%, #0d2947 100%);
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 820px;
+            padding: 100px 0;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--light-blue);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin-bottom: 12px;
+            font-size: clamp(3rem, 7vw, 5.8rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+        }
+
+        .hero h2 {
+            margin-bottom: 26px;
+            color: #c8def2;
+            font-size: clamp(1.35rem, 3vw, 2rem);
+            font-weight: 400;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin-bottom: 36px;
+            color: #d3e0ec;
+            font-size: 1.1rem;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 13px 22px;
+            border: 2px solid var(--blue);
+            border-radius: 7px;
+            background: var(--blue);
+            color: #061223;
+            font-weight: 700;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            background: var(--light-blue);
+        }
+
+        .button-secondary {
+            background: transparent;
+            color: var(--white);
+        }
+
+        .button-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* General sections */
+
+        section {
+            padding: 95px 0;
+        }
+
+        .section-label {
+            margin-bottom: 10px;
+            color: #1769aa;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .section-heading {
+            margin-bottom: 20px;
+            color: var(--navy);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.15;
+        }
+
+        .section-intro {
+            max-width: 760px;
+            margin-bottom: 46px;
+            color: var(--gray);
+            font-size: 1.05rem;
+        }
+
+        /* About */
+
+        .about {
+            background: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .about-text p {
+            margin-bottom: 18px;
+            color: #475467;
+            font-size: 1.05rem;
+        }
+
+        .skills-panel {
+            padding: 30px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--off-white);
+        }
+
+        .skills-panel h3 {
+            margin-bottom: 20px;
+            color: var(--navy);
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+        }
+
+        .skills-list li {
+            padding: 8px 12px;
+            border: 1px solid #c8d9e8;
+            border-radius: 6px;
+            background: var(--white);
+            color: #344054;
+            font-size: 0.9rem;
+        }
+
+        /* Projects */
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 350px;
+            padding: 34px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 45px rgba(8, 23, 43, 0.17);
+        }
+
+        .project-number {
+            margin-bottom: 24px;
+            color: #1769aa;
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        .project-card h3 {
+            margin-bottom: 14px;
+            color: var(--navy);
+            font-size: 1.45rem;
+            line-height: 1.3;
+        }
+
+        .project-card p {
+            margin-bottom: 22px;
+            color: var(--gray);
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .project-tags span {
+            padding: 6px 10px;
+            border-radius: 5px;
+            background: #eaf4ff;
+            color: #155b91;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Experience */
+
+        .experience {
+            background: var(--white);
+        }
+
+        .experience-item {
+            display: grid;
+            grid-template-columns: 190px 1fr;
+            gap: 35px;
+            padding: 30px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .experience-item:last-child {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .experience-date {
+            color: #1769aa;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .experience-details h3 {
+            margin-bottom: 5px;
+            color: var(--navy);
+            font-size: 1.25rem;
+        }
+
+        .experience-details h4 {
+            margin-bottom: 12px;
+            color: var(--gray);
+            font-size: 0.96rem;
+            font-weight: 600;
+        }
+
+        .experience-details p {
+            color: #475467;
+        }
+
+        /* Contact */
+
+        .contact {
+            text-align: center;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(74, 163, 255, 0.18), transparent 28%),
+                var(--navy);
+            color: var(--white);
+        }
+
+        .contact .section-heading {
+            color: var(--white);
+        }
+
+        .contact p {
+            max-width: 650px;
+            margin: 0 auto 30px;
+            color: #cfdeeb;
+            font-size: 1.05rem;
+        }
+
+        /* Footer */
+
+        footer {
+            padding: 25px 0;
+            background: #050d18;
+            color: #9eb0c1;
+            text-align: center;
+            font-size: 0.88rem;
+        }
+
+        /* Mobile layout */
+
+        @media (max-width: 800px) {
+            .nav-content {
+                flex-direction: column;
+                justify-content: center;
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                min-height: auto;
+            }
+
+            .about-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a class="logo" href="#home">JACOB GARRY</a>
+
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="container hero-content">
+            <span class="eyebrow">Aerospace Engineering Portfolio</span>
+
+            <h1>Jacob Garry</h1>
+
+            <h2>
+                Flight Systems · Controls · Embedded Computing · Experimental Testing
+            </h2>
+
+            <p>
+                Aerospace engineering student at North Carolina State University
+                with hands-on experience developing, integrating, testing, and
+                analyzing multidisciplinary engineering systems.
+            </p>
+
+            <div class="button-group">
+                <a class="button" href="#projects">View Projects</a>
+
+                <a class="button button-secondary" href="mailto:jtgarry1@gmail.com">
+                    Contact Me
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="about" id="about">
+            <div class="container">
+                <p class="section-label">About Me</p>
+                <h2 class="section-heading">Engineering through analysis and testing.</h2>
+
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p>
+                            I am an aerospace engineering student at North Carolina
+                            State University with interests in flight systems,
+                            control system design, embedded computing, simulation,
+                            and experimental testing.
+                        </p>
+
+                        <p>
+                            My project experience has included scientific balloon
+                            payload integration, nonlinear dynamic modeling,
+                            controller development, automated test systems,
+                            mechanical design, and embedded hardware troubleshooting.
+                        </p>
+
+                        <p>
+                            I enjoy working on projects that require mechanical,
+                            electrical, and software systems to operate together
+                            reliably under real-world constraints.
+                        </p>
+                    </div>
+
+                    <aside class="skills-panel">
+                        <h3>Technical Areas</h3>
+
+                        <ul class="skills-list">
+                            <li>MATLAB</li>
+                            <li>Simulink</li>
+                            <li>Python</li>
+                            <li>Control Systems</li>
+                            <li>Embedded Systems</li>
+                            <li>Raspberry Pi</li>
+                            <li>NVIDIA Jetson</li>
+                            <li>CAD</li>
+                            <li>System Integration</li>
+                            <li>Experimental Testing</li>
+                            <li>Technical Documentation</li>
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <p class="section-label">Selected Work</p>
+                <h2 class="section-heading">Engineering Projects</h2>
+
+                <p class="section-intro">
+                    Selected aerospace, controls, embedded systems, and
+                    experimental testing projects.
+                </p>
+
+                <div class="projects-grid">
+
+                    <article class="project-card">
+                        <span class="project-number">PROJECT 01</span>
+
+                        <h3>NASA HASP Scientific Balloon Payload</h3>
+
+                        <p>
+                            Integrated and tested a high-altitude scientific payload
+                            designed to compare radiation effects on two NVIDIA
+                            Jetson computers, including one protected by a
+                            tungsten-filled conformal coating. Supported power,
+                            thermal, communication, software, and system-level
+                            testing through NASA integration.
+                        </p>
+
+                        <div class="project-tags">
+                            <span>Flight Systems</span>
+                            <span>Embedded Computing</span>
+                            <span>Integration Testing</span>
+                            <span>Thermal Vacuum</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-number">PROJECT 02</span>
+
+                        <h3>
+                            Nonlinear Modeling and Control of a Pneumatic Rotary System
+                        </h3>
+
+                        <p>
+                            Developed a nonlinear Simulink model using measured
+                            thruster data, actuator dead zones, saturation, gravity,
+                            damping, pneumatic dynamics, and encoder response.
+                            Designed and evaluated a filtered PID controller for
+                            stable and unstable operating points using root locus,
+                            Bode margins, sensitivity, and disturbance testing.
+                        </p>
+
+                        <div class="project-tags">
+                            <span>MATLAB</span>
+                            <span>Simulink</span>
+                            <span>PID Control</span>
+                            <span>Dynamic Modeling</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-number">PROJECT 03</span>
+
+                        <h3>Automated Wind-Tunnel Measurement System</h3>
+
+                        <p>
+                            Developed an automated measurement rail for collecting
+                            airflow data across a fan-array test section. Integrated
+                            a stepper motor, distance sensor, differential-pressure
+                            sensor, limit switch, and ESP32-based control system to
+                            execute repeatable spatial measurements.
+                        </p>
+
+                        <div class="project-tags">
+                            <span>ESP32</span>
+                            <span>Automation</span>
+                            <span>Instrumentation</span>
+                            <span>Wind-Tunnel Testing</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-number">PROJECT 04</span>
+
+                        <h3>PackNanoSat Mission Analysis and Systems Integration</h3>
+
+                        <p>
+                            Contributed to mission analysis and systems integration
+                            for a student satellite concept focused on supporting
+                            the refueling of spacecraft in low Earth orbit.
+                            Participated in technical planning, subsystem
+                            coordination, and team design decisions.
+                        </p>
+
+                        <div class="project-tags">
+                            <span>Space Systems</span>
+                            <span>Mission Analysis</span>
+                            <span>Systems Engineering</span>
+                            <span>Team Coordination</span>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="experience" id="experience">
+            <div class="container">
+                <p class="section-label">Experience</p>
+                <h2 class="section-heading">Technical Background</h2>
+
+                <div class="experience-item">
+                    <div class="experience-date">Summer 2026</div>
+
+                    <div class="experience-details">
+                        <h3>NASA HASP Payload Team</h3>
+                        <h4>Scientific Balloon Payload Integration and Testing</h4>
+
+                        <p>
+                            Supported completion, troubleshooting, integration, and
+                            environmental testing of a student payload cleared for
+                            high-altitude balloon flight.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-date">North Carolina State University</div>
+
+                    <div class="experience-details">
+                        <h3>Bachelor of Science in Aerospace Engineering</h3>
+                        <h4>Department of Mechanical and Aerospace Engineering</h4>
+
+                        <p>
+                            Coursework and project experience in controls,
+                            aerodynamics, structures, compressible flow,
+                            composites, propulsion, and aerospace system design.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <p class="section-label">Contact</p>
+                <h2 class="section-heading">Let’s connect.</h2>
+
+                <p>
+                    I am interested in opportunities involving aerospace systems,
+                    flight testing, controls, simulation, embedded systems, and
+                    engineering development.
+                </p>
+
+                <a class="button" href="mailto:jtgarry1@gmail.com">
+                    jtgarry1@gmail.com
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>
+                © <span id="year"></span> Jacob Garry. Aerospace Engineering Portfolio.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
