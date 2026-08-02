@@ -12,12 +12,6 @@
     >
 
     <style>
-        .project-link {
-    align-self: flex-start;
-    margin-top: 24px;
-    padding: 10px 16px;
-    font-size: 0.9rem;
-}
         :root {
             --navy: #08172b;
             --navy-light: #102844;
@@ -58,8 +52,6 @@
             margin: 0 auto;
         }
 
-        /* Navigation */
-
         nav {
             position: sticky;
             top: 0;
@@ -99,8 +91,6 @@
         .nav-links a:hover {
             color: var(--light-blue);
         }
-
-        /* Hero */
 
         .hero {
             min-height: 680px;
@@ -179,8 +169,6 @@
             background: rgba(255, 255, 255, 0.08);
         }
 
-        /* General sections */
-
         section {
             padding: 95px 0;
         }
@@ -207,8 +195,6 @@
             color: var(--gray);
             font-size: 1.05rem;
         }
-
-        /* About */
 
         .about {
             background: var(--white);
@@ -254,8 +240,6 @@
             color: #344054;
             font-size: 0.9rem;
         }
-
-        /* Projects */
 
         .projects-grid {
             display: grid;
@@ -316,7 +300,12 @@
             font-weight: 700;
         }
 
-        /* Experience */
+        .project-link {
+            align-self: flex-start;
+            margin-top: 24px;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+        }
 
         .experience {
             background: var(--white);
@@ -357,8 +346,6 @@
             color: #475467;
         }
 
-        /* Contact */
-
         .contact {
             text-align: center;
             background:
@@ -378,8 +365,6 @@
             font-size: 1.05rem;
         }
 
-        /* Footer */
-
         footer {
             padding: 25px 0;
             background: #050d18;
@@ -387,8 +372,6 @@
             text-align: center;
             font-size: 0.88rem;
         }
-
-        /* Mobile layout */
 
         @media (max-width: 800px) {
             .nav-content {
@@ -548,6 +531,10 @@
                             <span>Integration Testing</span>
                             <span>Thermal Vacuum</span>
                         </div>
+
+                        <a class="button project-link" href="nasa-hasp.html">
+                            View Project
+                        </a>
                     </article>
 
                     <article class="project-card">
@@ -595,30 +582,31 @@
                         </div>
                     </article>
 
-                   <article class="project-card">
-    <span class="project-number">PROJECT 04</span>
+                    <article class="project-card">
+                        <span class="project-number">PROJECT 04</span>
 
-    <h3>Active Airbrake System for High-Powered Rocketry</h3>
+                        <h3>Active Airbrake System for High-Powered Rocketry</h3>
 
-    <p>
-        Contributed to the design, fabrication, integration, and testing of an
-        actively controlled aerodynamic airbrake system for competition rockets.
-        The project combined mechanical design, embedded control, servo actuation,
-        flight instrumentation, and post-flight data analysis to improve apogee
-        accuracy and system reliability.
-    </p>
- 
-    <div class="project-tags">
-        <span>High-Powered Rocketry</span>
-        <span>Mechanical Design</span>
-        <span>Embedded Systems</span>
-        <span>Flight Testing</span>
-    </div>
+                        <p>
+                            Contributed to the design, fabrication, integration, and
+                            testing of an actively controlled aerodynamic airbrake
+                            system for competition rockets. The project combined
+                            mechanical design, embedded control, servo actuation,
+                            flight instrumentation, and post-flight data analysis to
+                            improve apogee accuracy and system reliability.
+                        </p>
 
-    <a class="button project-link" href="airbrakes.html">
-        View Project
-    </a>
-</article>
+                        <div class="project-tags">
+                            <span>High-Powered Rocketry</span>
+                            <span>Mechanical Design</span>
+                            <span>Embedded Systems</span>
+                            <span>Flight Testing</span>
+                        </div>
+
+                        <a class="button project-link" href="airbrakes.html">
+                            View Project
+                        </a>
+                    </article>
 
                 </div>
             </div>
