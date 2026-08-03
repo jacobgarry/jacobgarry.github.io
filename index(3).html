@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jacob Garry | Aerospace Engineering Portfolio</title>
+
+    <meta
+        name="description"
+        content="Aerospace engineering portfolio featuring flight systems, aerodynamics, compressible flow, embedded instrumentation, controls, CFD, and experimental testing."
+    >
+
+    <style>
+        :root {
+            --navy: #08172b;
+            --navy-light: #102844;
+            --blue: #4aa3ff;
+            --light-blue: #8fc7ff;
+            --white: #ffffff;
+            --off-white: #f4f7fb;
+            --gray: #667085;
+            --dark-gray: #1d2939;
+            --border: #d9e2ec;
+            --shadow: 0 12px 35px rgba(8, 23, 43, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--dark-gray);
+            background: var(--off-white);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .container {
+            width: min(1120px, 90%);
+            margin: 0 auto;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8, 23, 43, 0.97);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #dce8f5;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--light-blue);
+        }
+
+        .hero {
+            min-height: 680px;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            background:
+                radial-gradient(circle at 80% 30%, rgba(74, 163, 255, 0.23), transparent 32%),
+                linear-gradient(135deg, #061223 0%, #0d2947 100%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(300px, 390px);
+            gap: 70px;
+            align-items: center;
+            padding: 80px 0;
+        }
+
+        .hero-content {
+            max-width: 720px;
+        }
+
+        .hero-portrait {
+            position: relative;
+            width: 100%;
+            justify-self: end;
+        }
+
+        .hero-portrait::before {
+            content: "";
+            position: absolute;
+            inset: -12px;
+            z-index: 0;
+            border: 1px solid rgba(143, 199, 255, 0.35);
+            border-radius: 22px;
+        }
+
+        .hero-portrait img {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            object-position: center top;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            box-shadow: 0 22px 55px rgba(0, 0, 0, 0.35);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--light-blue);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin-bottom: 12px;
+            font-size: clamp(3rem, 7vw, 5.8rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+        }
+
+        .hero h2 {
+            margin-bottom: 26px;
+            color: #c8def2;
+            font-size: clamp(1.35rem, 3vw, 2rem);
+            font-weight: 400;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin-bottom: 36px;
+            color: #d3e0ec;
+            font-size: 1.1rem;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 13px 22px;
+            border: 2px solid var(--blue);
+            border-radius: 7px;
+            background: var(--blue);
+            color: #061223;
+            font-weight: 700;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            background: var(--light-blue);
+        }
+
+        .button-secondary {
+            background: transparent;
+            color: var(--white);
+        }
+
+        .button-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        section {
+            padding: 95px 0;
+        }
+
+        .section-label {
+            margin-bottom: 10px;
+            color: #1769aa;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .section-heading {
+            margin-bottom: 20px;
+            color: var(--navy);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.15;
+        }
+
+        .section-intro {
+            max-width: 760px;
+            margin-bottom: 46px;
+            color: var(--gray);
+            font-size: 1.05rem;
+        }
+
+        .about {
+            background: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .about-text p {
+            margin-bottom: 18px;
+            color: #475467;
+            font-size: 1.05rem;
+        }
+
+        .skills-panel {
+            padding: 30px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--off-white);
+        }
+
+        .skills-panel h3 {
+            margin-bottom: 20px;
+            color: var(--navy);
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+        }
+
+        .skills-list li {
+            padding: 8px 12px;
+            border: 1px solid #c8d9e8;
+            border-radius: 6px;
+            background: var(--white);
+            color: #344054;
+            font-size: 0.9rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            display: flex;
+            min-width: 0;
+            min-height: 620px;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 48px rgba(8, 23, 43, 0.18);
+        }
+
+        .project-media {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            background:
+                linear-gradient(135deg, #0d2947, #1769aa);
+        }
+
+        .project-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(to top, rgba(6, 18, 35, 0.28), transparent 42%);
+        }
+
+        .project-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.45s ease;
+        }
+
+        .project-card:hover .project-media img {
+            transform: scale(1.035);
+        }
+
+        .project-media img.contain {
+            object-fit: contain;
+            padding: 14px;
+            background: #edf3f8;
+        }
+
+        .media-label {
+            position: absolute;
+            right: 16px;
+            bottom: 14px;
+            z-index: 2;
+            padding: 6px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 999px;
+            background: rgba(8, 23, 43, 0.78);
+            color: var(--white);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            backdrop-filter: blur(5px);
+        }
+
+        .project-content {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        .project-number {
+            margin-bottom: 18px;
+            color: #1769aa;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        .project-card h3 {
+            margin-bottom: 14px;
+            color: var(--navy);
+            font-size: 1.42rem;
+            line-height: 1.28;
+        }
+
+        .project-card p {
+            margin-bottom: 22px;
+            color: var(--gray);
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .project-tags span {
+            padding: 6px 10px;
+            border-radius: 5px;
+            background: #eaf4ff;
+            color: #155b91;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .project-link {
+            align-self: flex-start;
+            margin-top: 24px;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+        }
+
+        .contact {
+            color: var(--white);
+            text-align: center;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(74, 163, 255, 0.18), transparent 28%),
+                var(--navy);
+        }
+
+        .contact .section-heading {
+            color: var(--white);
+        }
+
+        .contact p {
+            max-width: 650px;
+            margin: 0 auto 30px;
+            color: #cfdeeb;
+            font-size: 1.05rem;
+        }
+
+        .contact .button-group {
+            justify-content: center;
+        }
+
+        footer {
+            padding: 25px 0;
+            background: #050d18;
+            color: #9eb0c1;
+            text-align: center;
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 800px) {
+            .nav-content {
+                flex-direction: column;
+                justify-content: center;
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 16px;
+            }
+
+            .hero {
+                min-height: auto;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 44px;
+                padding: 65px 0;
+            }
+
+            .hero-content {
+                max-width: none;
+                text-align: center;
+            }
+
+            .hero p {
+                margin-right: auto;
+                margin-left: auto;
+            }
+
+            .button-group {
+                justify-content: center;
+            }
+
+            .hero-portrait {
+                width: min(360px, 86%);
+                justify-self: center;
+            }
+
+            .about-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                min-height: 0;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a class="logo" href="#home">JACOB GARRY</a>
+
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <span class="eyebrow">Aerospace Engineering Portfolio</span>
+
+                <h1>Jacob Garry</h1>
+
+                <h2>
+                    Flight Systems · Aerodynamics · Embedded Systems · Experimental Testing
+                </h2>
+
+                <p>
+                    Aerospace engineering student at North Carolina State University
+                    with hands-on experience developing, integrating, testing, and
+                    analyzing multidisciplinary engineering systems.
+                </p>
+
+                <div class="button-group">
+                    <a class="button" href="#projects">View Projects</a>
+
+                    <a class="button button-secondary" href="mailto:jtgarry@ncsu.edu">
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-portrait">
+                <img
+                    src="https://avatars.githubusercontent.com/u/311628376?v=4"
+                    alt="Professional headshot of Jacob Garry"
+                >
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="about" id="about">
+            <div class="container">
+                <p class="section-label">About Me</p>
+                <h2 class="section-heading">Engineering through analysis and testing.</h2>
+
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p>
+                            I am an aerospace engineering student at North Carolina
+                            State University focused on the design, integration, and
+                            experimental validation of multidisciplinary aerospace systems.
+                        </p>
+
+                        <p>
+                            My work spans high-altitude flight hardware, compressible-flow
+                            analysis, embedded instrumentation, control systems, aerodynamic
+                            testing, CAD, CFD, and additive manufacturing.
+                        </p>
+
+                        <p>
+                            I enjoy carrying projects from analytical modeling and mechanical
+                            design through fabrication, system integration, testing, data
+                            reduction, and technical documentation.
+                        </p>
+                    </div>
+
+                    <aside class="skills-panel">
+                        <h3>Technical Areas</h3>
+
+                        <ul class="skills-list">
+                            <li>MATLAB &amp; Simulink</li>
+                            <li>Python</li>
+                            <li>SolidWorks</li>
+                            <li>ANSYS CFD</li>
+                            <li>Control Systems</li>
+                            <li>Embedded Systems</li>
+                            <li>ESP32 &amp; Raspberry Pi</li>
+                            <li>NVIDIA Jetson</li>
+                            <li>Instrumentation &amp; Data Acquisition</li>
+                            <li>System Integration</li>
+                            <li>Wind-Tunnel &amp; Flight Testing</li>
+                            <li>Additive Manufacturing</li>
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <p class="section-label">Selected Work</p>
+                <h2 class="section-heading">Engineering Projects</h2>
+
+                <p class="section-intro">
+                    Selected projects spanning high-altitude flight systems,
+                    compressible-flow design, embedded instrumentation,
+                    wind-tunnel testing, and active aerodynamic control.
+                </p>
+
+                <div class="projects-grid">
+
+                    <article class="project-card">
+                        <div class="project-media">
+                            <img
+                                id="hasp-card-image"
+                                src="data:image/svg+xml;charset=UTF-8,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221600%22%20height%3D%22900%22%20viewBox%3D%220%200%201600%20900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%22%23061223%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23174d78%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2280%25%22%20cy%3D%2215%25%22%20r%3D%2260%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%22%2372bcff%22%20stop-opacity%3D%22.55%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2372bcff%22%20stop-opacity%3D%220%22/%3E%0A%20%20%20%20%3C/radialGradient%3E%0A%20%20%3C/defs%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23bg%29%22/%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23glow%29%22/%3E%0A%20%20%3Ccircle%20cx%3D%221260%22%20cy%3D%22160%22%20r%3D%2288%22%20fill%3D%22none%22%20stroke%3D%22%238fc7ff%22%20stroke-width%3D%2210%22%20opacity%3D%22.85%22/%3E%0A%20%20%3Cpath%20d%3D%22M1260%20248%20L1218%20342%20H1302%20Z%22%20fill%3D%22%238fc7ff%22%20opacity%3D%22.85%22/%3E%0A%20%20%3Cpath%20d%3D%22M1260%20340%20C1234%20430%201234%20485%201260%20545%22%20fill%3D%22none%22%20stroke%3D%22%238fc7ff%22%20stroke-width%3D%227%22%20stroke-dasharray%3D%2215%2014%22/%3E%0A%20%20%3Cg%20transform%3D%22translate%28980%20510%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22470%22%20height%3D%22250%22%20rx%3D%2224%22%20fill%3D%22%23f4f7fb%22/%3E%0A%20%20%20%20%3Crect%20x%3D%2238%22%20y%3D%2244%22%20width%3D%22170%22%20height%3D%22132%22%20rx%3D%2213%22%20fill%3D%22%23102844%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22258%22%20y%3D%2244%22%20width%3D%22170%22%20height%3D%22132%22%20rx%3D%2213%22%20fill%3D%22%23102844%22/%3E%0A%20%20%20%20%3Ctext%20x%3D%22123%22%20y%3D%22120%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20fill%3D%22%238fc7ff%22%3EJETSON%201%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%22343%22%20y%3D%22120%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20fill%3D%22%238fc7ff%22%3EJETSON%202%3C/text%3E%0A%20%20%20%20%3Crect%20x%3D%22105%22%20y%3D%22201%22%20width%3D%22260%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%234aa3ff%22/%3E%0A%20%20%3C/g%3E%0A%20%20%3Cpath%20d%3D%22M130%20675%20C310%20590%20470%20590%20655%20675%20S1010%20760%201180%20650%22%20fill%3D%22none%22%20stroke%3D%22%234aa3ff%22%20stroke-width%3D%228%22%20opacity%3D%22.7%22/%3E%0A%20%20%3Ctext%20x%3D%22120%22%20y%3D%22190%22%20font-family%3D%22Arial%22%20font-size%3D%2250%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3ENASA%20HASP%3C/text%3E%0A%20%20%3Ctext%20x%3D%22120%22%20y%3D%22255%22%20font-family%3D%22Arial%22%20font-size%3D%2230%22%20fill%3D%22%23c8def2%22%3EHigh-altitude%20embedded%20computing%20payload%3C/text%3E%0A%20%20%3Ctext%20x%3D%22120%22%20y%3D%22735%22%20font-family%3D%22Arial%22%20font-size%3D%2225%22%20font-weight%3D%22700%22%20fill%3D%22%238fc7ff%22%20letter-spacing%3D%225%22%3EFLIGHT%20SYSTEMS%20%E2%80%A2%20THERMAL%20VACUUM%20%E2%80%A2%20INTEGRATION%3C/text%3E%0A%3C/svg%3E%0A"
+                                alt="NASA HASP high-altitude scientific payload"
+                            >
+                            <span class="media-label">Integration Testing</span>
+                        </div>
+
+                        <div class="project-content">
+                            <span class="project-number">PROJECT 01</span>
+
+                            <h3>NASA HASP Scientific Balloon Payload</h3>
+
+                            <p>
+                                Integrated and tested a high-altitude scientific payload
+                                designed to compare radiation effects on two NVIDIA Jetson
+                                computers, including one protected by a tungsten-filled
+                                conformal coating. Supported power, thermal, communication,
+                                software, and system-level testing through NASA integration.
+                            </p>
+
+                            <div class="project-tags">
+                                <span>Flight Systems</span>
+                                <span>Embedded Computing</span>
+                                <span>Integration Testing</span>
+                                <span>Thermal Vacuum</span>
+                            </div>
+
+                            <a class="button project-link" href="nasa-hasp.html">
+                                View Project
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-media">
+                            <img
+                                src="assets/convergent-divergent-nozzle/printed-nozzle-hero.jpg"
+                                alt="Sectioned 3D-printed convergent-divergent nozzle"
+                                loading="lazy"
+                            >
+                            <span class="media-label">Design &amp; Manufacturing</span>
+                        </div>
+
+                        <div class="project-content">
+                            <span class="project-number">PROJECT 02</span>
+
+                            <h3>Convergent-Divergent Nozzle Design and Testing</h3>
+
+                            <p>
+                                Designed, manufactured, and experimentally tested a
+                                3D-printed convergent-divergent nozzle. Compared
+                                one-dimensional isentropic predictions with ANSYS CFD
+                                and wind-tunnel Pitot measurements to evaluate choking,
+                                supersonic acceleration, probe blockage, and
+                                overexpanded exit behavior.
+                            </p>
+
+                            <div class="project-tags">
+                                <span>Compressible Flow</span>
+                                <span>ANSYS CFD</span>
+                                <span>SolidWorks</span>
+                                <span>Wind-Tunnel Testing</span>
+                            </div>
+
+                            <a class="button project-link" href="convergent-divergent-nozzle.html">
+                                View Project
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-media">
+                            <img
+                                src="assets/convergent-divergent-nozzle/nozzle-test-setup.jpg"
+                                alt="Instrumented wind-tunnel test setup and traversing measurement rail"
+                                loading="lazy"
+                            >
+                            <span class="media-label">Instrumentation</span>
+                        </div>
+
+                        <div class="project-content">
+                            <span class="project-number">PROJECT 03</span>
+
+                            <h3>Automated Wind-Tunnel Measurement System</h3>
+
+                            <p>
+                                Developed an automated measurement rail for collecting
+                                airflow data across a fan-array test section. Integrated
+                                a stepper motor, distance sensor, differential-pressure
+                                sensor, limit switch, and ESP32-based control system to
+                                execute repeatable spatial measurements.
+                            </p>
+
+                            <div class="project-tags">
+                                <span>ESP32</span>
+                                <span>Automation</span>
+                                <span>Instrumentation</span>
+                                <span>Wind-Tunnel Testing</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-media">
+                            <img
+                                id="airbrake-card-image"
+                                class="contain"
+                                src="media/airbrake_cad.png"
+                                alt="Exploded CAD rendering of the active rocket airbrake system"
+                                loading="lazy"
+                                data-fallback="data:image/svg+xml;charset=UTF-8,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221600%22%20height%3D%22900%22%20viewBox%3D%220%200%201600%20900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%22%2308172b%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231d527b%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%3C/defs%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23bg%29%22/%3E%0A%20%20%3Cg%20transform%3D%22translate%28800%20455%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%22-105%22%20y%3D%22-330%22%20width%3D%22210%22%20height%3D%22660%22%20rx%3D%22102%22%20fill%3D%22%23eef4fa%22%20stroke%3D%22%238fc7ff%22%20stroke-width%3D%228%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M-105%20-215%20L-210%20-350%20L-105%20-322%20Z%22%20fill%3D%22%23d7e6f2%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M105%20-215%20L210%20-350%20L105%20-322%20Z%22%20fill%3D%22%23d7e6f2%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M-104%2042%20L-370%20-65%20L-338%2092%20L-104%20152%20Z%22%20fill%3D%22%234aa3ff%22%20stroke%3D%22%238fc7ff%22%20stroke-width%3D%227%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M104%2042%20L370%20-65%20L338%2092%20L104%20152%20Z%22%20fill%3D%22%234aa3ff%22%20stroke%3D%22%238fc7ff%22%20stroke-width%3D%227%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M-95%20330%20L0%20455%20L95%20330%20Z%22%20fill%3D%22%23d7e6f2%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%22-88%22%20r%3D%2255%22%20fill%3D%22%23102844%22%20stroke%3D%22%234aa3ff%22%20stroke-width%3D%228%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M0%20-35%20V105%22%20stroke%3D%22%234aa3ff%22%20stroke-width%3D%2212%22/%3E%0A%20%20%3C/g%3E%0A%20%20%3Cpath%20d%3D%22M235%20660%20C470%20500%20570%20465%20680%20455%22%20fill%3D%22none%22%20stroke%3D%22%238fc7ff%22%20stroke-width%3D%228%22%20stroke-dasharray%3D%2220%2016%22/%3E%0A%20%20%3Cpath%20d%3D%22M1365%20660%20C1130%20500%201030%20465%20920%20455%22%20fill%3D%22none%22%20stroke%3D%22%238fc7ff%22%20stroke-width%3D%228%22%20stroke-dasharray%3D%2220%2016%22/%3E%0A%20%20%3Ctext%20x%3D%22110%22%20y%3D%22145%22%20font-family%3D%22Arial%22%20font-size%3D%2250%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3EACTIVE%20AIRBRAKE%20SYSTEM%3C/text%3E%0A%20%20%3Ctext%20x%3D%22110%22%20y%3D%22205%22%20font-family%3D%22Arial%22%20font-size%3D%2229%22%20fill%3D%22%23c8def2%22%3EDeployable%20aerodynamic%20control%20for%20apogee%20targeting%3C/text%3E%0A%20%20%3Ctext%20x%3D%22110%22%20y%3D%22810%22%20font-family%3D%22Arial%22%20font-size%3D%2225%22%20font-weight%3D%22700%22%20fill%3D%22%238fc7ff%22%20letter-spacing%3D%225%22%3EFLIGHT%20CONTROL%20%E2%80%A2%20SERVO%20ACTUATION%20%E2%80%A2%20CFD%3C/text%3E%0A%3C/svg%3E%0A"
+                            >
+                            <span class="media-label">Active Flight Control</span>
+                        </div>
+
+                        <div class="project-content">
+                            <span class="project-number">PROJECT 04</span>
+
+                            <h3>Active Airbrake System for High-Powered Rocketry</h3>
+
+                            <p>
+                                Contributed to the design, fabrication, integration, and
+                                testing of an actively controlled aerodynamic airbrake
+                                system for competition rockets. The project combined
+                                mechanical design, embedded control, servo actuation,
+                                flight instrumentation, and post-flight data analysis to
+                                improve apogee accuracy and system reliability.
+                            </p>
+
+                            <div class="project-tags">
+                                <span>High-Powered Rocketry</span>
+                                <span>Mechanical Design</span>
+                                <span>Embedded Systems</span>
+                                <span>Flight Testing</span>
+                            </div>
+
+                            <a class="button project-link" href="airbrakes.html">
+                                View Project
+                            </a>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <p class="section-label">Contact</p>
+                <h2 class="section-heading">Let’s connect.</h2>
+
+                <p>
+                    I am interested in opportunities involving aerospace system
+                    development, flight and wind-tunnel testing, aerodynamics,
+                    controls, embedded systems, and engineering analysis.
+                </p>
+
+                <div class="button-group">
+                    <a class="button" href="mailto:jtgarry@ncsu.edu">
+                        jtgarry@ncsu.edu
+                    </a>
+
+                    <a
+                        class="button button-secondary"
+                        href="https://www.linkedin.com/in/jakegarry/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>
+                © <span id="year"></span> Jacob Garry. Aerospace Engineering Portfolio.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        const airbrakeImage = document.getElementById("airbrake-card-image");
+        airbrakeImage.addEventListener("error", () => {
+            const fallback = airbrakeImage.dataset.fallback;
+            if (fallback && airbrakeImage.src !== fallback) {
+                airbrakeImage.src = fallback;
+            }
+        }, { once: true });
+
+        async function useImageFromProjectPage(targetId, page, selectors) {
+            try {
+                const response = await fetch(page, { cache: "force-cache" });
+                if (!response.ok) return;
+
+                const sourceText = await response.text();
+                const projectDocument = new DOMParser().parseFromString(sourceText, "text/html");
+
+                let sourceImage = null;
+                for (const selector of selectors) {
+                    sourceImage = projectDocument.querySelector(selector);
+                    if (sourceImage) break;
+                }
+
+                const source = sourceImage?.getAttribute("src");
+                if (!source) return;
+
+                const target = document.getElementById(targetId);
+                target.src = source.startsWith("data:")
+                    ? source
+                    : new URL(source, new URL(page, window.location.href)).href;
+            } catch (error) {
+                console.info("Project-card image fallback retained.", error);
+            }
+        }
+
+        useImageFromProjectPage(
+            "hasp-card-image",
+            "nasa-hasp.html",
+            [
+                'img[alt*="thermal-vacuum chamber"]',
+                'img[alt*="Completed NCSU NASA HASP payload"]',
+                'img[alt*="Open payload enclosure"]',
+                ".hero-image img"
+            ]
+        );
+
+        useImageFromProjectPage(
+            "airbrake-card-image",
+            "airbrakes.html",
+            [
+                'img[alt*="Exploded CAD"]',
+                'img[alt*="CFD velocity contour"]',
+                ".media-card img",
+                "main img"
+            ]
+        );
+    </script>
+
+</body>
+</html>
