@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Convergent-Divergent Nozzle | Jacob Garry</title>
+
+    <meta
+        name="description"
+        content="Design, CFD analysis, manufacturing, and wind-tunnel validation of a 3D-printed convergent-divergent nozzle for choked and supersonic flow."
+    >
+
+    <style>
+        :root {
+            --navy: #08172b;
+            --navy-light: #102844;
+            --blue: #4aa3ff;
+            --light-blue: #8fc7ff;
+            --white: #ffffff;
+            --off-white: #f4f7fb;
+            --gray: #667085;
+            --dark-gray: #1d2939;
+            --border: #d9e2ec;
+            --shadow: 0 12px 35px rgba(8, 23, 43, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--dark-gray);
+            background: var(--off-white);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+        }
+
+        .container {
+            width: min(1120px, 90%);
+            margin: 0 auto;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8, 23, 43, 0.97);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #dce8f5;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--light-blue);
+        }
+
+        .hero {
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            background:
+                radial-gradient(circle at 84% 26%, rgba(74, 163, 255, 0.24), transparent 31%),
+                linear-gradient(135deg, #061223 0%, #0d2947 100%);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(330px, 0.9fr);
+            gap: 64px;
+            align-items: center;
+            padding: 78px 0 105px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--light-blue);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin-bottom: 18px;
+            font-size: clamp(3rem, 6.7vw, 5.6rem);
+            line-height: 0.98;
+            letter-spacing: -0.05em;
+        }
+
+        .hero h2 {
+            margin-bottom: 24px;
+            color: #c8def2;
+            font-size: clamp(1.2rem, 2.4vw, 1.75rem);
+            font-weight: 400;
+            line-height: 1.35;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin-bottom: 30px;
+            color: #d3e0ec;
+            font-size: 1.05rem;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 13px 22px;
+            border: 2px solid var(--blue);
+            border-radius: 7px;
+            background: var(--blue);
+            color: #061223;
+            font-weight: 700;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            background: var(--light-blue);
+        }
+
+        .button-secondary {
+            background: transparent;
+            color: var(--white);
+        }
+
+        .button-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-image {
+            overflow: hidden;
+            border: 10px solid rgba(255, 255, 255, 0.11);
+            border-radius: 18px;
+            background: #0b1f36;
+            box-shadow: 0 28px 65px rgba(0, 0, 0, 0.36);
+            transform: rotate(1.2deg);
+        }
+
+        .hero-image img {
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+        }
+
+        .quick-facts {
+            position: relative;
+            z-index: 10;
+            margin-top: -52px;
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .fact {
+            min-height: 145px;
+            padding: 26px;
+            border-right: 1px solid var(--border);
+        }
+
+        .fact:last-child {
+            border-right: 0;
+        }
+
+        .fact strong {
+            display: block;
+            margin-bottom: 9px;
+            color: #1769aa;
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .fact span {
+            color: var(--gray);
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+
+        section {
+            padding: 95px 0;
+        }
+
+        .white-section {
+            background: var(--white);
+        }
+
+        .section-label {
+            margin-bottom: 10px;
+            color: #1769aa;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .section-heading {
+            margin-bottom: 20px;
+            color: var(--navy);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.15;
+        }
+
+        .section-intro {
+            max-width: 820px;
+            margin-bottom: 44px;
+            color: var(--gray);
+            font-size: 1.05rem;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        .panel {
+            padding: 32px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .panel h3 {
+            margin-bottom: 14px;
+            color: var(--navy);
+            font-size: 1.35rem;
+        }
+
+        .panel p {
+            color: #475467;
+        }
+
+        .panel p + p {
+            margin-top: 16px;
+        }
+
+        .constraint-list {
+            display: grid;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .constraint-list li {
+            padding: 14px 16px;
+            border-left: 4px solid var(--blue);
+            border-radius: 4px;
+            background: #eef6ff;
+            color: #344054;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 22px;
+        }
+
+        .tags span {
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: #eaf4ff;
+            color: #155b91;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .workflow-card {
+            min-height: 270px;
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .workflow-card span {
+            display: inline-block;
+            margin-bottom: 17px;
+            color: #1769aa;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        .workflow-card h3 {
+            margin-bottom: 12px;
+            color: var(--navy);
+            font-size: 1.2rem;
+        }
+
+        .workflow-card p {
+            color: var(--gray);
+            font-size: 0.94rem;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 26px;
+            margin-top: 38px;
+        }
+
+        .media-card {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .media-card img {
+            height: 350px;
+            object-fit: contain;
+            padding: 18px;
+            background: #eef3f8;
+        }
+
+        .media-caption {
+            padding: 18px 22px 22px;
+            border-top: 1px solid var(--border);
+        }
+
+        .media-caption h3 {
+            margin-bottom: 6px;
+            color: var(--navy);
+        }
+
+        .media-caption p {
+            color: var(--gray);
+            font-size: 0.92rem;
+        }
+
+        .analysis-section {
+            background:
+                radial-gradient(circle at 85% 20%, rgba(74, 163, 255, 0.16), transparent 28%),
+                var(--navy);
+            color: var(--white);
+        }
+
+        .analysis-section .section-label {
+            color: var(--light-blue);
+        }
+
+        .analysis-section .section-heading {
+            color: var(--white);
+        }
+
+        .analysis-section .section-intro {
+            color: #cbd9e7;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .metric-table,
+        .equation-card {
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .metric-table h3,
+        .equation-card h3 {
+            margin-bottom: 18px;
+            color: var(--light-blue);
+        }
+
+        .metric-list {
+            list-style: none;
+        }
+
+        .metric-list li {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .metric-list li:last-child {
+            border-bottom: 0;
+        }
+
+        .metric-list span {
+            color: #cbd9e7;
+        }
+
+        .metric-list strong {
+            color: var(--white);
+            text-align: right;
+        }
+
+        .equation {
+            overflow-x: auto;
+            padding: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.06);
+            font-family: "Times New Roman", serif;
+            font-size: clamp(1rem, 2.2vw, 1.45rem);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .equation-card p {
+            margin-top: 17px;
+            color: #c9d8e6;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .result-card {
+            padding: 28px;
+            border-top: 5px solid var(--blue);
+            border-radius: 12px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .result-card strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #1769aa;
+            font-size: 2.05rem;
+            line-height: 1;
+        }
+
+        .result-card h3 {
+            margin-bottom: 10px;
+            color: var(--navy);
+        }
+
+        .result-card p {
+            color: var(--gray);
+            font-size: 0.93rem;
+        }
+
+        .comparison-card {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 26px;
+            margin-top: 30px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .comparison-card img {
+            min-height: 430px;
+            object-fit: contain;
+            padding: 22px;
+            background: #f7f9fc;
+        }
+
+        .comparison-copy {
+            padding: 34px 32px 34px 0;
+            align-self: center;
+        }
+
+        .comparison-copy h3 {
+            margin-bottom: 12px;
+            color: var(--navy);
+            font-size: 1.45rem;
+        }
+
+        .comparison-copy p {
+            margin-bottom: 15px;
+            color: #475467;
+        }
+
+        .callout {
+            margin-top: 20px;
+            padding: 20px;
+            border-left: 5px solid var(--blue);
+            border-radius: 7px;
+            background: #eef6ff;
+            color: #344054;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .gallery .wide {
+            grid-column: 1 / -1;
+        }
+
+        .gallery-card {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-card img {
+            height: 360px;
+            object-fit: contain;
+            padding: 18px;
+            background: #eef3f8;
+        }
+
+        .gallery-card.wide img {
+            height: 470px;
+        }
+
+        .gallery-card.photo img {
+            object-fit: cover;
+            object-position: center;
+            padding: 0;
+            background: #dfe8f0;
+        }
+
+        .gallery-card.photo.wide img {
+            height: 520px;
+        }
+
+        .gallery-caption {
+            padding: 17px 21px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--gray);
+            font-size: 0.92rem;
+        }
+
+        .takeaways {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .takeaway {
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .takeaway h3 {
+            margin-bottom: 10px;
+            color: var(--navy);
+        }
+
+        .takeaway p {
+            color: var(--gray);
+        }
+
+        .files {
+            background:
+                radial-gradient(circle at 20% 50%, rgba(74, 163, 255, 0.18), transparent 28%),
+                var(--navy);
+            color: var(--white);
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .files h2 {
+            margin-bottom: 14px;
+            font-size: clamp(2rem, 4vw, 3rem);
+        }
+
+        .files p {
+            max-width: 690px;
+            color: #cfdeeb;
+        }
+
+        footer {
+            padding: 25px 0;
+            background: #050d18;
+            color: #9eb0c1;
+            text-align: center;
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 950px) {
+            .hero-grid,
+            .overview-grid,
+            .analysis-grid,
+            .comparison-card {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                max-width: 620px;
+                transform: none;
+            }
+
+            .workflow {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .comparison-copy {
+                padding: 0 30px 30px;
+            }
+
+            .results-grid,
+            .takeaways {
+                grid-template-columns: 1fr;
+            }
+
+            .files-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .nav-content {
+                flex-direction: column;
+                justify-content: center;
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                min-height: auto;
+            }
+
+            .hero-grid {
+                gap: 42px;
+                padding: 64px 0 95px;
+                text-align: center;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .button-group {
+                justify-content: center;
+            }
+
+            .facts-grid,
+            .workflow,
+            .media-grid,
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .fact {
+                border-right: 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .fact:last-child {
+                border-bottom: 0;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            .media-card img,
+            .gallery-card img,
+            .gallery-card.wide img,
+            .comparison-card img {
+                height: auto;
+                min-height: 0;
+            }
+
+            .gallery .wide {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        RECOMMENDED REPOSITORY STRUCTURE
+
+        /convergent-divergent-nozzle.html
+        /assets/convergent-divergent-nozzle/
+            printed-nozzle-hero.jpg
+            printed-nozzle-section.jpg
+            printed-nozzle-full.jpg
+            solidworks-nozzle-design.png
+            design-constraints.png
+            computational-mesh.png
+            cfd-static-pressure.png
+            cfd-static-temperature.png
+            cfd-mach-number.png
+            mach-comparison.png
+            stagnation-temperature.png
+            Convergent_Divergent_Nozzle_Report.pdf
+    -->
+
+    <nav>
+        <div class="container nav-content">
+            <a class="logo" href="index.html">JACOB GARRY</a>
+
+            <ul class="nav-links">
+                <li><a href="index.html#projects">Portfolio</a></li>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#methodology">Methodology</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#media">Media</a></li>
+                <li><a href="#files">Files</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container hero-grid">
+            <div>
+                <span class="eyebrow">Compressible Flow · CAD, CFD & Experimental Testing</span>
+
+                <h1>Convergent-Divergent Nozzle</h1>
+
+                <h2>
+                    Design, fabrication, and validation of a 3D-printed supersonic nozzle
+                </h2>
+
+                <p>
+                    A team project that combined one-dimensional isentropic analysis,
+                    SolidWorks design, ANSYS CFD, additive manufacturing, and wind-tunnel
+                    measurements to characterize choked and supersonic flow through a
+                    convergent-divergent nozzle.
+                </p>
+
+                <div class="button-group">
+                    <a class="button" href="#overview">Explore Project</a>
+
+                    <a
+                        class="button button-secondary"
+                        href="assets/convergent-divergent-nozzle/Convergent_Divergent_Nozzle_Report.pdf"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        View Final Report
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <img
+                    src="assets/convergent-divergent-nozzle/printed-nozzle-hero.jpg"
+                    alt="Sectioned and complete 3D-printed convergent-divergent nozzle"
+                >
+            </div>
+        </div>
+    </header>
+
+    <div class="container quick-facts" aria-label="Project highlights">
+        <div class="facts-grid">
+            <article class="fact">
+                <strong>6.00 in</strong>
+                <span>Maximum overall nozzle length</span>
+            </article>
+
+            <article class="fact">
+                <strong>Mach 1</strong>
+                <span>Choked condition at the throat</span>
+            </article>
+
+            <article class="fact">
+                <strong>Mach 1.53</strong>
+                <span>Maximum CFD outlet Mach number</span>
+            </article>
+
+            <article class="fact">
+                <strong>3 Methods</strong>
+                <span>Analytical, computational, and experimental validation</span>
+            </article>
+        </div>
+    </div>
+
+    <main>
+        <section class="white-section" id="overview">
+            <div class="container">
+                <p class="section-label">Project Overview</p>
+                <h2 class="section-heading">Turning compressible-flow theory into a physical test article.</h2>
+
+                <p class="section-intro">
+                    The objective was to design and manufacture a functional nozzle that
+                    accelerated air from subsonic conditions to supersonic flow, then compare
+                    theoretical predictions against CFD and wind-tunnel measurements.
+                </p>
+
+                <div class="overview-grid">
+                    <article class="panel">
+                        <h3>Engineering objective</h3>
+                        <p>
+                            The nozzle geometry was sized with the area-Mach relation and
+                            one-dimensional isentropic equations. The resulting design was
+                            modeled in SolidWorks, printed in PLA+, simulated in ANSYS, and
+                            tested using a traversing Pitot-tube system.
+                        </p>
+                        <p>
+                            The comparison focused on Mach number, pressure, temperature,
+                            density, velocity, and mass-flow behavior along the nozzle centerline.
+                        </p>
+
+                        <div class="tags" aria-label="Project technologies">
+                            <span>SolidWorks</span>
+                            <span>ANSYS CFD</span>
+                            <span>MATLAB</span>
+                            <span>3D Printing</span>
+                            <span>Compressible Flow</span>
+                            <span>Wind-Tunnel Testing</span>
+                        </div>
+                    </article>
+
+                    <aside class="panel">
+                        <h3>Design constraints</h3>
+                        <ul class="constraint-list">
+                            <li>Maximum nozzle length of 6 inches</li>
+                            <li>Pitot-tube blockage ratio below 10%</li>
+                            <li>Supply pressure limited to 80 psi</li>
+                            <li>Geometry capable of choking at the throat</li>
+                            <li>Manufacturable as a PLA+ 3D-printed test article</li>
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section id="methodology">
+            <div class="container">
+                <p class="section-label">Engineering Methodology</p>
+                <h2 class="section-heading">Four connected stages from equations to experiment.</h2>
+
+                <p class="section-intro">
+                    Each stage supplied a different level of fidelity. The analytical model
+                    established the expected trends, CFD captured spatial flow behavior, and
+                    physical testing revealed effects not represented in the idealized models.
+                </p>
+
+                <div class="workflow">
+                    <article class="workflow-card">
+                        <span>01 · ANALYTICAL</span>
+                        <h3>One-dimensional flow model</h3>
+                        <p>
+                            Used the area-Mach relation and isentropic equations to calculate
+                            Mach number, pressure, temperature, density, velocity, and mass
+                            flow at ten locations through the nozzle.
+                        </p>
+                    </article>
+
+                    <article class="workflow-card">
+                        <span>02 · DESIGN</span>
+                        <h3>SolidWorks geometry</h3>
+                        <p>
+                            Converted the required throat and exit area ratios into a revolved
+                            nozzle geometry while satisfying length, wall-thickness, flange,
+                            and instrumentation-clearance constraints.
+                        </p>
+                    </article>
+
+                    <article class="workflow-card">
+                        <span>03 · SIMULATION</span>
+                        <h3>ANSYS CFD model</h3>
+                        <p>
+                            Generated a quadrilateral-dominant mesh and evaluated Mach number,
+                            static pressure, and static temperature throughout the internal flow
+                            field at the expected supply condition.
+                        </p>
+                    </article>
+
+                    <article class="workflow-card">
+                        <span>04 · TESTING</span>
+                        <h3>Wind-tunnel measurements</h3>
+                        <p>
+                            Moved a Pitot probe through the nozzle at 0.5-inch and 1-inch
+                            increments, then reduced the pressure measurements using isentropic
+                            and Rayleigh-Pitot relationships.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="media-grid">
+                    <article class="media-card">
+                        <img
+                            src="assets/convergent-divergent-nozzle/solidworks-nozzle-design.png"
+                            alt="Dimensioned SolidWorks drawing of the convergent-divergent nozzle"
+                        >
+                        <div class="media-caption">
+                            <h3>Dimensioned nozzle geometry</h3>
+                            <p>
+                                The 6-inch model includes the inlet flange, converging section,
+                                throat, and gradually expanding diverging section.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="media-card">
+                        <img
+                            src="assets/convergent-divergent-nozzle/computational-mesh.png"
+                            alt="Quadrilateral computational mesh used for the nozzle CFD model"
+                        >
+                        <div class="media-caption">
+                            <h3>Computational mesh</h3>
+                            <p>
+                                A structured, quadrilateral-dominant mesh resolved the converging
+                                region, throat, and expanding supersonic section.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="analysis-section">
+            <div class="container">
+                <p class="section-label">Analytical Model</p>
+                <h2 class="section-heading">The expected transition from subsonic to supersonic flow.</h2>
+
+                <p class="section-intro">
+                    The one-dimensional solution predicted constant mass flow, choking at the
+                    throat, and continued acceleration through the diverging section as static
+                    pressure, temperature, and density decreased.
+                </p>
+
+                <div class="analysis-grid">
+                    <article class="metric-table">
+                        <h3>Selected analytical results</h3>
+                        <ul class="metric-list">
+                            <li><span>Inlet Mach number</span><strong>0.10</strong></li>
+                            <li><span>Throat Mach number</span><strong>1.00</strong></li>
+                            <li><span>Exit Mach number</span><strong>1.80</strong></li>
+                            <li><span>Exit velocity</span><strong>487.0 m/s</strong></li>
+                            <li><span>Exit static pressure</span><strong>83.9 kPa</strong></li>
+                            <li><span>Mass-flow rate</span><strong>0.0913 kg/s</strong></li>
+                        </ul>
+                    </article>
+
+                    <article class="equation-card">
+                        <h3>Area-Mach relation</h3>
+                        <div class="equation">
+                            A/A* = (1/M)[(2/(γ+1))(1 + ((γ-1)/2)M²)]^((γ+1)/(2(γ-1)))
+                        </div>
+                        <p>
+                            The throat area defines the sonic reference area. Solving the
+                            relation on the subsonic branch before the throat and the supersonic
+                            branch after the throat produces the centerline Mach distribution.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="white-section" id="results">
+            <div class="container">
+                <p class="section-label">Results and Validation</p>
+                <h2 class="section-heading">The three methods captured the same overall flow transition.</h2>
+
+                <p class="section-intro">
+                    All three approaches showed the flow reaching Mach 1 near the throat and
+                    becoming supersonic in the diverging section, although the final Mach number
+                    differed because each method represented losses and probe blockage differently.
+                </p>
+
+                <div class="results-grid">
+                    <article class="result-card">
+                        <strong>1.80</strong>
+                        <h3>Analytical exit Mach</h3>
+                        <p>
+                            The ideal one-dimensional model produced the highest theoretical
+                            acceleration without viscous losses or instrumentation blockage.
+                        </p>
+                    </article>
+
+                    <article class="result-card">
+                        <strong>1.53</strong>
+                        <h3>CFD outlet Mach</h3>
+                        <p>
+                            The simulation predicted a lower outlet Mach number while showing
+                            the expected pressure and temperature reductions through the nozzle.
+                        </p>
+                    </article>
+
+                    <article class="result-card">
+                        <strong>≈ 1.93</strong>
+                        <h3>Experimental exit estimate</h3>
+                        <p>
+                            The plotted experimental result exceeded the ideal prediction near
+                            the exit, which the report linked to probe blockage and an exit shock.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="comparison-card">
+                    <img
+                        src="assets/convergent-divergent-nozzle/mach-comparison.png"
+                        alt="Comparison of analytical, CFD, and experimental Mach number along the nozzle centerline"
+                    >
+
+                    <div class="comparison-copy">
+                        <h3>Centerline Mach-number comparison</h3>
+                        <p>
+                            The analytical, CFD, and experimental curves all show rapid
+                            acceleration near the throat, located at approximately 25% of the
+                            normalized nozzle length.
+                        </p>
+                        <p>
+                            Differences in the diverging section were attributed to boundary-layer
+                            effects, the physical presence of the Pitot probe, and the overexpanded
+                            exit condition.
+                        </p>
+
+                        <div class="callout">
+                            The analytical exit pressure was 83.9 kPa, below the 101.3 kPa ambient
+                            pressure. The report therefore classified the nozzle as overexpanded.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="media">
+            <div class="container">
+                <p class="section-label">CFD and Experimental Media</p>
+                <h2 class="section-heading">Flow-field visualization and test evidence.</h2>
+
+                <p class="section-intro">
+                    The laboratory photograph documents the physical nozzle test setup. The
+                    contours show the spatial changes in pressure, temperature, and Mach number,
+                    while the temperature plot documents both stable reservoir data and the
+                    failed Pitot thermocouple measurement.
+                </p>
+
+                <div class="gallery">
+                    <article class="gallery-card photo wide">
+                        <img
+                            src="assets/convergent-divergent-nozzle/nozzle-test-setup.jpg"
+                            alt="Convergent-divergent nozzle installed in the laboratory test setup"
+                            loading="lazy"
+                        >
+                        <div class="gallery-caption">
+                            <strong>Experimental test setup:</strong> the 3D-printed
+                            convergent-divergent nozzle installed in the laboratory apparatus
+                            used to collect the experimental pressure and temperature data.
+                        </div>
+                    </article>
+
+                    <article class="gallery-card">
+                        <img
+                            src="assets/convergent-divergent-nozzle/cfd-static-pressure.png"
+                            alt="ANSYS static-pressure contour through the nozzle"
+                        >
+                        <div class="gallery-caption">
+                            <strong>Static-pressure contour:</strong> approximately 537 kPa at the
+                            inlet and 76.5 kPa at the outlet.
+                        </div>
+                    </article>
+
+                    <article class="gallery-card">
+                        <img
+                            src="assets/convergent-divergent-nozzle/cfd-static-temperature.png"
+                            alt="ANSYS static-temperature contour through the nozzle"
+                        >
+                        <div class="gallery-caption">
+                            <strong>Static-temperature contour:</strong> approximately 300 K at the
+                            inlet and 207 K at the outlet.
+                        </div>
+                    </article>
+
+                    <article class="gallery-card wide">
+                        <img
+                            src="assets/convergent-divergent-nozzle/cfd-mach-number.png"
+                            alt="ANSYS Mach-number contour through the nozzle"
+                        >
+                        <div class="gallery-caption">
+                            <strong>Mach-number contour:</strong> the CFD solution accelerated from
+                            approximately Mach 0.184 at the inlet to Mach 1.53 at the outlet.
+                        </div>
+                    </article>
+
+                    <article class="gallery-card wide">
+                        <img
+                            src="assets/convergent-divergent-nozzle/stagnation-temperature.png"
+                            alt="Measured stagnation-temperature distribution along the nozzle"
+                        >
+                        <div class="gallery-caption">
+                            <strong>Temperature validation:</strong> the reservoir thermocouple
+                            remained near 300 K. The Pitot thermocouple was excluded after reporting
+                            physically impossible values near -66,500 °C.
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="white-section">
+            <div class="container">
+                <p class="section-label">Engineering Takeaways</p>
+                <h2 class="section-heading">What the project demonstrated.</h2>
+
+                <div class="takeaways">
+                    <article class="takeaway">
+                        <h3>Analytical models establish the physics</h3>
+                        <p>
+                            The one-dimensional solution correctly predicted choking, constant
+                            mass flow, and the direction of pressure, temperature, and velocity
+                            changes through the nozzle.
+                        </p>
+                    </article>
+
+                    <article class="takeaway">
+                        <h3>Instrumentation changes the experiment</h3>
+                        <p>
+                            The Pitot probe occupied part of the flow area, creating blockage that
+                            was not present in the analytical model or the CFD geometry.
+                        </p>
+                    </article>
+
+                    <article class="takeaway">
+                        <h3>Sensor validation is part of data analysis</h3>
+                        <p>
+                            The failed thermocouple could not be treated as valid data. Excluding
+                            the impossible reading preserved the credibility of the remaining
+                            temperature comparison.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="files" id="files">
+            <div class="container files-grid">
+                <div>
+                    <h2>Explore the full project</h2>
+                    <p>
+                        The complete report includes the governing equations, analytical data,
+                        SolidWorks geometry, CFD contours, experimental reduction method,
+                        centerline comparisons, conclusions, and MATLAB code.
+                    </p>
+                </div>
+
+                <div>
+                    <a
+                        class="button"
+                        href="assets/convergent-divergent-nozzle/Convergent_Divergent_Nozzle_Report.pdf"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Open Final Report
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>
+                © <span id="year"></span> Jacob Garry. Aerospace Engineering Portfolio.<br>
+                Team project with Jackson Gabel, Bradley Brooks, and Jacob Barnette.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
