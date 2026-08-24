@@ -8,7 +8,7 @@
 <style>
 :root{--navy:#08172b;--blue:#4aa3ff;--light:#8fc7ff;--white:#fff;--off:#f4f7fb;--gray:#667085;--dark:#1d2939;--border:#d9e2ec;--shadow:0 12px 35px rgba(8,23,43,.12)}
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Arial,Helvetica,sans-serif;color:var(--dark);background:var(--off);line-height:1.6}a{text-decoration:none;color:inherit}img,video{display:block;width:100%}.container{width:min(1080px,90%);margin:auto}
-nav{position:sticky;top:0;z-index:10;background:rgba(8,23,43,.97)}.nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{color:#fff;font-weight:700;letter-spacing:.04em}.back{color:#dce8f5;font-size:.93rem}.back:hover{color:var(--light)}
+nav{position:sticky;top:0;z-index:10;background:rgba(8,23,43,.97)}.nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{color:#fff;font-weight:700;letter-spacing:.04em}.nav-links{display:flex;align-items:center;gap:22px;list-style:none}.nav-links a{color:#dce8f5;font-size:.9rem}.nav-links a:hover{color:var(--light)}
 .hero{padding:78px 0 68px;color:#fff;background:radial-gradient(circle at 80% 25%,rgba(74,163,255,.24),transparent 32%),linear-gradient(135deg,#061223,#0d2947)}.label{display:inline-block;margin-bottom:12px;color:var(--light);font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase}.hero h1{max-width:850px;margin-bottom:18px;font-size:clamp(2.6rem,6vw,5rem);line-height:1;letter-spacing:-.045em}.hero p{max-width:780px;color:#d3e0ec;font-size:1.08rem}
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:38px;border:1px solid rgba(255,255,255,.15);border-radius:12px;overflow:hidden;background:rgba(255,255,255,.15)}.metric{padding:21px;background:rgba(8,23,43,.76)}.metric strong{display:block;color:#fff;font-size:1.35rem}.metric span{color:#bfd5e8;font-size:.85rem}
 section{padding:68px 0}.white{background:#fff}.heading{margin-bottom:14px;color:var(--navy);font-size:clamp(1.8rem,4vw,2.55rem);line-height:1.15}.intro{max-width:780px;margin-bottom:32px;color:var(--gray)}.card{overflow:hidden;border:1px solid var(--border);border-radius:14px;background:#fff;box-shadow:var(--shadow)}.cad{padding:22px}.cad img{max-height:650px;object-fit:contain}.caption{padding:14px 18px 17px;border-top:1px solid var(--border);color:var(--gray);font-size:.9rem}
@@ -18,11 +18,11 @@ section{padding:68px 0}.white{background:#fff}.heading{margin-bottom:14px;color:
 .analysis{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}.analysis img{aspect-ratio:4/3;object-fit:contain;padding:14px}.copy{padding:19px;border-top:1px solid var(--border)}.copy h3{color:var(--navy)}.copy p{color:var(--gray);font-size:.93rem}
 .award{padding-top:0}.awardbox{display:grid;grid-template-columns:230px 1fr;gap:34px;align-items:center;padding:34px;border-radius:14px;color:#fff;background:radial-gradient(circle at 10% 30%,rgba(74,163,255,.22),transparent 35%),var(--navy)}.big{color:var(--light);font-size:clamp(3rem,7vw,5rem);font-weight:800;line-height:1}.small{color:#bcd2e5;font-size:.88rem}.awardbox h2{margin-bottom:9px}.awardbox p{color:#cfdeeb}.role{margin-top:18px;color:var(--gray);font-size:.92rem}
 footer{padding:24px;background:#050d18;color:#9eb0c1;text-align:center;font-size:.86rem}
-@media(max-width:900px){.metrics,.grid4{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.metrics,.grid4,.results,.videos,.analysis,.awardbox{grid-template-columns:1fr}section{padding:56px 0}}
+@media(max-width:900px){.metrics,.grid4{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.metrics,.grid4,.results,.videos,.analysis,.awardbox{grid-template-columns:1fr}section{padding:56px 0}.nav{flex-direction:column;justify-content:center;padding:12px 0}.nav-links{flex-wrap:wrap;justify-content:center;gap:14px}}
 </style>
 </head>
 <body>
-<nav><div class="container nav"><a class="logo" href="index.html">JACOB GARRY</a><a class="back" href="index.html#projects">← Back to Projects</a></div></nav>
+<nav><div class="container nav"><a class="logo" href="index.html">JACOB GARRY</a><ul class="nav-links"><li><a href="#system">System</a></li><li><a href="#design">Design</a></li><li><a href="#testing">Testing</a></li><li><a href="#analysis">Analysis</a></li><li><a href="#results">Results</a></li><li><a href="index.html#projects">Portfolio</a></li></ul></div></nav>
 <header class="hero"><div class="container">
 <span class="label">NCSU High-Powered Rocketry · NASA Student Launch</span>
 <h1>Autonomous Airbrake Flight Control System</h1>
@@ -34,13 +34,13 @@ footer{padding:24px;background:#050d18;color:#9eb0c1;text-align:center;font-size
 <div class="metric"><strong>Altitude Award</strong><span>2026 competition result</span></div>
 </div></div></header>
 <main>
-<section><div class="container">
+<section id="system"><div class="container">
 <span class="label">Integrated System</span>
 <h2 class="heading">A compact mechanical and embedded flight-control assembly.</h2>
 <p class="intro">The module combined four synchronized fins, geared servo actuation, onboard processing, inertial sensing, pressure measurement, and a removable structural stack packaged inside the rocket.</p>
 <div class="card cad"><img src="media/airbrake_cad.png" alt="Exploded CAD model of the active airbrake assembly"><p class="caption">Exploded assembly showing the drag surfaces, actuation mechanism, Raspberry Pi flight computer, custom INS, and structural interfaces.</p></div>
 </div></section>
-<section class="white"><div class="container">
+<section class="white" id="design"><div class="container">
 <span class="label">Engineering Design</span>
 <h2 class="heading">The system predicted first, then actuated only when needed.</h2>
 <div class="grid4">
@@ -49,7 +49,7 @@ footer{padding:24px;background:#050d18;color:#9eb0c1;text-align:center;font-size
 <article class="feature"><h3>Custom Flight Sensing</h3><p>A custom INS supplied acceleration, orientation, magnetic, and barometric data to the finite-state machine.</p></article>
 <article class="feature"><h3>High-Torque Actuation</h3><p>A 6.14 lb-ft servo with an integrated encoder drove all four fins through a synchronized geared mechanism.</p></article>
 </div></div></section>
-<section><div class="container">
+<section id="testing"><div class="container">
 <span class="label">Flight Validation</span>
 <h2 class="heading">Validated across both subscale and full-scale flights.</h2>
 <div class="results">
@@ -60,14 +60,14 @@ footer{padding:24px;background:#050d18;color:#9eb0c1;text-align:center;font-size
 <article class="card video"><video controls preload="metadata" playsinline><source src="media/airbrake_flight.mp4" type="video/mp4"></video><p class="caption">Real flight footage showing the airbrake system in its operating environment.</p></article>
 <article class="card video portrait"><video controls preload="metadata" playsinline muted><source src="media/airbrake_response.mp4" type="video/mp4"></video><p class="caption">Ground test demonstrating rapid and repeatable deployment response.</p></article>
 </div></div></section>
-<section class="white"><div class="container">
+<section class="white" id="analysis"><div class="container">
 <span class="label">Aerodynamics and Telemetry</span>
 <h2 class="heading">Simulation and flight data exposed both performance and sensor-placement effects.</h2>
 <div class="analysis">
 <article class="card"><img src="media/airbrake_cfd.png" alt="CFD contour around deployed airbrakes"><div class="copy"><h3>CFD Flow Field</h3><p>CFD visualized separated flow and wake development around the deployed fins, supporting the expected drag increase.</p></div></article>
 <article class="card"><img src="media/airbrake_pressure.png" alt="Pressure comparison near the airbrakes"><div class="copy"><h3>Pressure Disturbance</h3><p>Flight telemetry showed noisier pressure near the deployed airbrakes than at the nose, demonstrating why sensor placement matters near active surfaces.</p></div></article>
 </div></div></section>
-<section class="award"><div class="container">
+<section class="award" id="results"><div class="container">
 <div class="awardbox"><div><div class="big">+6 ft</div><div class="small">relative to declared apogee</div></div>
 <div><h2>2026 Altitude Award Winner</h2><p>The competition vehicle finished six feet above its declared apogee. The controller kept the airbrakes stowed because the predicted trajectory did not require additional drag—showing that the system could make a correct no-deployment decision rather than simply actuating on a fixed timer.</p></div></div>
 <p class="role">My work with the aerodynamics subteam included supporting the mechanical design, integration, fabrication, testing, and post-flight evaluation of the airbrake system.</p>
